@@ -37,9 +37,11 @@ export default class GoalListItem extends React.Component {
         {this.props.expanded ?
           <GoalListItemExpanded
             goal={goal}
+            historyVisible={this.props.historyVisible}
             items={this.props.items}
             showProgress={this.props.showProgress}
             showRegisterProgress={this.props.showRegisterProgress}
+            toggleHistoryVisible={this.props.toggleHistoryVisible}
           /> : null}
       </li>);
   }

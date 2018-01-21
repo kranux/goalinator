@@ -16,19 +16,17 @@ class App extends Component {
       listItemExpanded: undefined,
       newGoalForm: undefined,
       progress: require('./mock/progress.json'),
-      progressVisible: undefined,
+      historyVisible: undefined
     };
 
     this.showAddGoal = this.showAddGoal.bind(this);
     this.goalElementUpdated = this.goalElementUpdated.bind(this);
 
-    this.showProgress = this.showProgress.bind(this);
-    this.closeProgress = this.closeProgress.bind(this);
-
     this.showRegisterProgress = this.showRegisterProgress.bind(this);
     this.progressElementUpdated = this.progressElementUpdated.bind(this);
 
     this.toggleExpanded = this.toggleExpanded.bind(this);
+    this.toggleHistoryVisible = this.toggleHistoryVisible.bind(this);
   }
 
   goalElementUpdated(element) {
@@ -69,21 +67,6 @@ class App extends Component {
     });
   }
 
-  showProgress(goal) {
-    this.setState({
-      progressVisible: {
-        goal,
-        items: this.getItems(goal)
-      }
-    })
-  }
-
-  closeProgress() {
-    this.setState({
-      progressVisible: undefined
-    });
-  }
-
   showRegisterProgress(goal) {
     this.setState({
       registerProgressForm: {
@@ -101,6 +84,12 @@ class App extends Component {
   toggleExpanded(goal) {
     this.setState({
       listItemExpanded: this.state.listItemExpanded !== goal.id ? goal.id : undefined
+    });
+  }
+
+  toggleHistoryVisible(goal) {
+    this.setState({
+      historyVisible: this.state.historyVisible !== goal.id ? goal.id : undefined
     });
   }
 
@@ -122,25 +111,17 @@ class App extends Component {
         <ul>
           {this.state.goals.map(goal =>
             <GoalListItem
+              expanded={this.state.listItemExpanded === goal.id}
               goal={goal}
+              historyVisible={this.state.historyVisible === goal.id}
               items={this.getItems(goal)}
               key={goal.id}
-              showProgress={this.showProgress}
               showRegisterProgress={this.showRegisterProgress}
               toggleExpanded={this.toggleExpanded}
-              expanded={this.state.listItemExpanded === goal.id}
+              toggleHistoryVisible={this.toggleHistoryVisible}
             />
           )}
         </ul>
-        {this.state.progressVisible ? (
-          <div>
-            <a onClick={this.closeProgress}>x</a>
-            <h2>{this.state.progressVisible.goal.name}</h2>
-            <ul>
-              {this.state.progressVisible.items.map(goal => <li key={goal.id}>{formatTime(goal.time)}: {goal.value}</li>)}
-            </ul>
-          </div>
-        ): null}
       </div>
     );
   }
