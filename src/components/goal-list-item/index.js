@@ -20,7 +20,10 @@ export default class GoalListItem extends React.Component {
     const goal = this.props.goal;
 
     return (
-      <li className="list-item">
+      <li
+        className={"list-item "+ (this.props.expanded ? 'expanded' : 'collapsed')}
+        onClick={() => {!this.props.expanded && this.props.toggleExpanded(goal)}}
+      >
         <span className="name">
           {goal.name}
         </span>
@@ -31,7 +34,6 @@ export default class GoalListItem extends React.Component {
           {calculateDaysLeft(goal)} days left
         </span>
         <span><a onClick={() => {this.props.showRegisterProgress(goal)}}>[ + ]</a></span>
-        <span><a onClick={() => {this.props.toggleExpanded(goal)}}>[ ... ]</a></span>
         {this.props.expanded ?
           <GoalListItemExpanded
             goal={goal}

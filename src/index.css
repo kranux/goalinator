@@ -15,3 +15,25 @@ body {
 .list-item span {
   margin-right: 5px;
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  padding-left: 1.3em;
+}
+li:before {
+  font-family: FontAwesome;
+  display: inline-block;
+  margin-left: -1.3em; /* same as padding-left set on li */
+  width: 1.3em; /* same as padding-left set on li */
+}
+
+li.expanded:before {
+  content: "\f068";
+}
+
+li.collapsed:before {
+  content: "\f067";
+}
