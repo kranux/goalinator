@@ -1,11 +1,11 @@
 [
     {
-        "goal": "mock-1",
+        "goal": "weight-1",
         "value": 110,
         "time": "2018-01-01"
     },
     {
-        "goal": "mock-1",
+        "goal": "weight-1",
         "value": 108,
         "time": "2018-01-20"
     }

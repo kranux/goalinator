@@ -1,10 +1,20 @@
 [
     {
-        "id": "mock-1",
-        "name": "Loose some weight",
+        "id": "weight-1",
+        "name": "Lose some weight",
         "startValue": 110,
         "startTime": "2018-01-01",
         "goalValue": 80,
-        "goalTime": "2019-02-01"
+        "goalTime": "2019-02-01",
+        "value": 108
+    },
+    {
+      "id": "books-1",
+      "name": "Read more books in 2018",
+      "startValue": 0,
+      "startTime": "2018-01-01",
+      "goalValue": "19",
+      "goalTime": "2018-12-31",
+      "value": 2
     }
 ]
