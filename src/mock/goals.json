@@ -1,0 +1,10 @@
+[
+    {
+        "id": "mock-1",
+        "name": "Loose some weight",
+        "startValue": 110,
+        "startTime": "2018-01-01",
+        "goalValue": 80,
+        "goalTime": "2019-02-01"
+    }
+]

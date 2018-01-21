@@ -22,13 +22,17 @@ class App extends Component {
 
     this.state = {
       newGoalForm: undefined,
-      goals: require('./mock/goals.json')
+      goals: require('./mock/goals.json'),
+      progress: require('./mock/progress.json'),
+      progressVisible: undefined
     }
 
     this.showAddGoal = this.showAddGoal.bind(this);
-    this.addGoal = this.addGoal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+
+    this.showProgress = this.showProgress.bind(this);
+    this.closeProgress = this.closeProgress.bind(this);
   }
 
   handleSubmit(event) {
@@ -60,8 +64,19 @@ class App extends Component {
     });
   }
 
-  addGoal() {
+  showProgress(goal) {
+    this.setState({
+      progressVisible: {
+        goal,
+        items: this.state.progress.filter(progress => progress.goal === goal.id)
+      }
+    })
+  }
 
+  closeProgress() {
+    this.setState({
+      progressVisible: undefined
+    });
   }
 
   render() {
@@ -110,8 +125,27 @@ class App extends Component {
           </form>
         </div> : null}
         <ul>
-          {this.state.goals.map((goal, key) => <li key={key}>{goal.name}</li>)}
+          {this.state.goals.map((goal, key) => (
+            <li key={key}>
+              <span className="name">{goal.name}</span>
+              <span className="values">{goal.startValue} &#x2192; {goal.goalValue}</span>
+              <span className="time">{goal.startTime} {goal.goalTime}</span>
+              <ul className="controlls">
+                <li><a onClick={() => {this.showProgress(goal)}}>Show progress</a></li>
+                <li>Register progress</li>
+              </ul>
+            </li>
+          ))}
         </ul>
+        {this.state.progressVisible ? (
+          <div>
+            <a onClick={this.closeProgress}>x</a>
+            <h2>{this.state.progressVisible.goal.name}</h2>
+            <ul>
+              {this.state.progressVisible.items.map((goal, key) => <li key={key}>{formatTime(goal.time)}: {goal.value}</li>)}
+            </ul>
+          </div>
+        ): null}
       </div>
     );
   }
