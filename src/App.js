@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
+
 import logo from './logo.svg';
 import './App.css';
+import {formatTime} from './utils';
 
-import moment from 'moment';
-
-export const DATE_FORMAT = 'YYYY-MM-DD';
-
-export const formatTime = (time, format) => moment(time).format(format || DATE_FORMAT);
+import GoalListItem from './components/goal-list-item';
 
 const formItem = (label, input) => (
   <div className="form-item">
@@ -125,17 +123,9 @@ class App extends Component {
           </form>
         </div> : null}
         <ul>
-          {this.state.goals.map((goal, key) => (
-            <li key={key}>
-              <span className="name">{goal.name}</span>
-              <span className="values">{goal.startValue} &#x2192; {goal.goalValue}</span>
-              <span className="time">{goal.startTime} {goal.goalTime}</span>
-              <ul className="controlls">
-                <li><a onClick={() => {this.showProgress(goal)}}>Show progress</a></li>
-                <li>Register progress</li>
-              </ul>
-            </li>
-          ))}
+          {this.state.goals.map((goal, key) =>
+            <GoalListItem goal={goal} key={key} showProgress={this.showProgress} />
+          )}
         </ul>
         {this.state.progressVisible ? (
           <div>
