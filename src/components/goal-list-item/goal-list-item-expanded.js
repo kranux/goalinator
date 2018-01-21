@@ -38,7 +38,7 @@ export default class GoalListItemExpanded extends React.Component {
                 <td>{item.time}</td>
                 <td>{item.value}</td>
               </tr>
-            ) : this.props.items ?
+            ) : this.props.items.length ?
               <tr>
                 <td colspan="3">
                   <a onClick={this.loadHistory}>[...]</a>

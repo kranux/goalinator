@@ -13,7 +13,7 @@
       "name": "Read more books in 2018",
       "startValue": 0,
       "startTime": "2018-01-01",
-      "goalValue": "19",
+      "goalValue": 19,
       "goalTime": "2018-12-31",
       "value": 2
     },
