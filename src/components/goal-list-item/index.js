@@ -16,16 +16,6 @@ import GoalListItemExpanded from './goal-list-item-expanded';
 
 export default class GoalListItem extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.showExpanded = this.showExpanded.bind(this);
-  }
-
-  showExpanded() {
-    this.setState({expanded: true});
-  }
-
   render() {
     const goal = this.props.goal;
 
@@ -41,8 +31,8 @@ export default class GoalListItem extends React.Component {
           {calculateDaysLeft(goal)} days left
         </span>
         <span><a onClick={() => {this.props.showRegisterProgress(goal)}}>[ + ]</a></span>
-        <span><a onClick={this.showExpanded}>[ ... ]</a></span>
-        {this.state.expanded ?
+        <span><a onClick={() => {this.props.toggleExpanded(goal)}}>[ ... ]</a></span>
+        {this.props.expanded ?
           <GoalListItemExpanded
             goal={goal}
             items={this.props.items}

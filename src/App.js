@@ -12,10 +12,11 @@ class App extends Component {
     super(props);
 
     this.state = {
-      newGoalForm: undefined,
       goals: require('./mock/goals.json'),
+      listItemExpanded: undefined,
+      newGoalForm: undefined,
       progress: require('./mock/progress.json'),
-      progressVisible: undefined
+      progressVisible: undefined,
     };
 
     this.showAddGoal = this.showAddGoal.bind(this);
@@ -26,6 +27,8 @@ class App extends Component {
 
     this.showRegisterProgress = this.showRegisterProgress.bind(this);
     this.progressElementUpdated = this.progressElementUpdated.bind(this);
+
+    this.toggleExpanded = this.toggleExpanded.bind(this);
   }
 
   goalElementUpdated(element) {
@@ -95,6 +98,12 @@ class App extends Component {
     return this.state.progress.filter(progress => progress.goal === goal.id);
   }
 
+  toggleExpanded(goal) {
+    this.setState({
+      listItemExpanded: this.state.listItemExpanded !== goal.id ? goal.id : undefined
+    });
+  }
+
   render() {
 
     return (
@@ -118,6 +127,8 @@ class App extends Component {
               key={goal.id}
               showProgress={this.showProgress}
               showRegisterProgress={this.showRegisterProgress}
+              toggleExpanded={this.toggleExpanded}
+              expanded={this.state.listItemExpanded === goal.id}
             />
           )}
         </ul>
