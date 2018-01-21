@@ -12,24 +12,40 @@ const calculateProgressInPercent = goal => {
   return lambda / goalLambda * 100;
 }
 
+const calculateDaysGoneInPercent = goal => {
+  const daysLambda = calculateDifferenceInDays(goal.startTime, goal.goalTime);
+  const daysSinceStart = calculateDifferenceInDays(goal.startTime, new Date());
+  return daysSinceStart / daysLambda * 100;
+}
+
 const calculateDaysLeft = goal =>
-  calculateDifferenceInDays(goal.startTime, goal.goalTime);
+  calculateDifferenceInDays(new Date(), goal.goalTime);
+
+const isGoalToRightDirection = goal => {
+  const goalSign = Math.sign(goal.startValue - goal.goalValue);
+  const progressSign = Math.sign(goal.startValue - goal.value);
+  return goalSign === progressSign;
+}
+
+const isProgressSymetricToTime = goal => {
+  return calculateProgressInPercent(goal) >= calculateDaysGoneInPercent(goal);
+}
 
 export default class GoalListItem extends React.Component {
 
   render() {
     const goal = this.props.goal;
 
-    return  (
-      <li>
+    return (
+      <li className="list-item">
         <span className="name">
           {goal.name}
         </span>
-        <span className="progress">
-          Progress: {formatPercent(calculateProgressInPercent(goal))}%
+        <span className={isGoalToRightDirection(goal) ? 'green' : 'red'}>
+          {formatPercent(calculateProgressInPercent(goal))}%
         </span>
-        <span className="daysLeft">
-          {calculateDaysLeft(goal)} days to go
+        <span className={isProgressSymetricToTime(goal) ? 'green' : 'red'}>
+          {calculateDaysLeft(goal)} days left
         </span>
         <ul>
           <span className="values">

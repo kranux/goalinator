@@ -1,12 +1,12 @@
 [
     {
-        "id": "weight-1",
-        "name": "Lose some weight",
-        "startValue": 110,
-        "startTime": "2018-01-01",
-        "goalValue": 80,
-        "goalTime": "2019-02-01",
-        "value": 108
+      "id": "weight-1",
+      "name": "Lose some weight 2018",
+      "startValue": 110,
+      "startTime": "2018-01-01",
+      "goalValue": 80,
+      "goalTime": "2018-12-31",
+      "value": 108
     },
     {
       "id": "books-1",
@@ -16,5 +16,14 @@
       "goalValue": "19",
       "goalTime": "2018-12-31",
       "value": 2
+    },
+    {
+      "id": "weight-2",
+      "name": "Gain some weight 2018",
+      "startValue": 110,
+      "startTime": "2018-01-01",
+      "goalValue": 122,
+      "goalTime": "2018-05-31",
+      "value": 108
     }
 ]

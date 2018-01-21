@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import logo from './logo.svg';
-import './App.css';
 import {formatTime} from './utils';
-
 import GoalListItem from './components/goal-list-item';
 import GoalForm from './components/goal-form';
 import ProgressForm from './components/progress-form';
