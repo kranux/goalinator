@@ -10,7 +10,7 @@ export default class GoalListItem extends React.Component {
       <li>
         <span className="name">{goal.name}</span>
         <span className="values">{goal.startValue} &#x2192; {goal.goalValue}</span>
-        <span className="time">{goal.startTime} {goal.goalTime}</span>
+        <span className="time">{formatTime(goal.startTime)} {formatTime(goal.goalTime)}</span>
         <ul className="controlls">
           <li><a onClick={() => {this.props.showProgress(goal)}}>Show progress</a></li>
           <li>Register progress</li>

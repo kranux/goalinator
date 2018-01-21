@@ -5,13 +5,7 @@ import './App.css';
 import {formatTime} from './utils';
 
 import GoalListItem from './components/goal-list-item';
-
-const formItem = (label, input) => (
-  <div className="form-item">
-    <label>{label}</label>
-    {input}
-  </div>
-);
+import GoalForm from './components/goal-form';
 
 class App extends Component {
 
@@ -23,23 +17,21 @@ class App extends Component {
       goals: require('./mock/goals.json'),
       progress: require('./mock/progress.json'),
       progressVisible: undefined
-    }
+    };
 
     this.showAddGoal = this.showAddGoal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.elementUpdated = this.elementUpdated.bind(this);
 
     this.showProgress = this.showProgress.bind(this);
     this.closeProgress = this.closeProgress.bind(this);
   }
 
-  handleSubmit(event) {
+  elementUpdated(element) {
     this.setState({
       ...this.state,
-      goals: [...this.state.goals, this.state.newGoalForm],
+      goals: [...this.state.goals, element],
       newGoalForm: undefined
     });
-    event.preventDefault();
   }
 
   handleChange(event) {
@@ -78,50 +70,11 @@ class App extends Component {
   }
 
   render() {
-    
+
     return (
       <div>
         <button onClick={this.showAddGoal}>Add Goal</button>
-        {this.state.newGoalForm ? <div className="dialog">
-          <form onSubmit={this.handleSubmit}>
-            {formItem('Name', 
-              <input 
-                name="name"
-                onChange={this.handleChange}
-                type="text"
-                value={this.state.newGoalForm.name}
-              />)}
-            {formItem('Start value', 
-              <input
-                name="startValue"
-                onChange={this.handleChange}
-                type="number"
-                value={this.state.newGoalForm.startValue}
-              />)}
-            {formItem('Start date',
-              <input
-                name="startTime"
-                onChange={this.handleChange}
-                type="date"
-                value={formatTime(this.state.newGoalForm.startTime)}
-              />)}
-            {formItem('Goal value', 
-              <input
-                name="goalValue"
-                onChange={this.handleChange}
-                type="number"
-                value={this.state.newGoalForm.goalValue}
-              />)}
-            {formItem('Goal date',
-              <input
-                name="goalTime"
-                onChange={this.handleChange}
-                type="date"
-                value={formatTime(this.state.newGoalForm.goalTime)}
-              />)}
-            <button type="submit">Add</button>
-          </form>
-        </div> : null}
+        {this.state.newGoalForm ? <GoalForm value={this.state.newGoalForm} elementUpdated={this.elementUpdated} /> : null}
         <ul>
           {this.state.goals.map((goal, key) =>
             <GoalListItem goal={goal} key={key} showProgress={this.showProgress} />
