@@ -6,6 +6,7 @@ import {formatTime} from './utils';
 
 import GoalListItem from './components/goal-list-item';
 import GoalForm from './components/goal-form';
+import ProgressForm from './components/progress-form';
 
 class App extends Component {
 
@@ -20,33 +21,34 @@ class App extends Component {
     };
 
     this.showAddGoal = this.showAddGoal.bind(this);
-    this.elementUpdated = this.elementUpdated.bind(this);
+    this.goalElementUpdated = this.goalElementUpdated.bind(this);
 
     this.showProgress = this.showProgress.bind(this);
     this.closeProgress = this.closeProgress.bind(this);
+
+    this.showRegisterProgress = this.showRegisterProgress.bind(this);
+    this.progressElementUpdated = this.progressElementUpdated.bind(this);
   }
 
-  elementUpdated(element) {
+  goalElementUpdated(element) {
     this.setState({
-      ...this.state,
       goals: [...this.state.goals, element],
       newGoalForm: undefined
     });
   }
 
-  handleChange(event) {
-    const parsedValue = event.target.type === 'checkbox' ? Boolean(event.target.checked) : event.target.value;
-    const newGoalForm = this.state.newGoalForm;
-    newGoalForm[event.target.name] = parsedValue
-
-    this.setState({newGoalForm});
+  progressElementUpdated(element) {
+    this.setState({
+      progress: [...this.state.progress, element],
+      registerProgressForm: undefined
+    })
   }
 
   showAddGoal() {
     this.setState({
       newGoalForm: {
         name: '',
-        startlValue: 0,
+        startValue: 0,
         startTime: new Date(),
         goalDate: undefined,
         goalValue: 0
@@ -69,15 +71,37 @@ class App extends Component {
     });
   }
 
+  showRegisterProgress(goal) {
+    this.setState({
+      registerProgressForm: {
+        goal: goal.id,
+        time: new Date(),
+        value: 0
+      }
+    });
+  }
+
   render() {
 
     return (
       <div>
         <button onClick={this.showAddGoal}>Add Goal</button>
-        {this.state.newGoalForm ? <GoalForm value={this.state.newGoalForm} elementUpdated={this.elementUpdated} /> : null}
+        {this.state.newGoalForm ?
+          <GoalForm
+            value={this.state.newGoalForm}
+            elementUpdated={this.goalElementUpdated} /> : null}
+        {this.state.registerProgressForm ?
+          <ProgressForm
+            value={this.state.registerProgressForm}
+            elementUpdated={this.progressElementUpdated} /> : null}
         <ul>
           {this.state.goals.map((goal, key) =>
-            <GoalListItem goal={goal} key={key} showProgress={this.showProgress} />
+            <GoalListItem
+              goal={goal}
+              key={key}
+              showProgress={this.showProgress}
+              showRegisterProgress={this.showRegisterProgress}
+            />
           )}
         </ul>
         {this.state.progressVisible ? (
