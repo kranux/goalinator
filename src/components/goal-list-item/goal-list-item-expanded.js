@@ -32,15 +32,15 @@ export default class GoalListItemExpanded extends React.Component {
             <td>{goal.startValue}</td>
           </tr>
           {this.state.showHistory ?
-            this.props.items.splice(-1, 1).map((item, key) =>
-              <tr key={key}>
+            this.props.items.splice(-1, 1).map(item =>
+              <tr key={item.id}>
                 <td></td>
-                <td>{item.time}</td>
+                <td>{formatTime(item.time)}</td>
                 <td>{item.value}</td>
               </tr>
             ) : this.props.items.length ?
               <tr>
-                <td colspan="3">
+                <td colSpan="3">
                   <a onClick={this.loadHistory}>[...]</a>
                 </td>
               </tr> : null
@@ -51,7 +51,7 @@ export default class GoalListItemExpanded extends React.Component {
             <td>{goal.value}</td>
           </tr>
           <tr>
-            <td colpan="3">...</td>
+            <td colSpan="3">...</td>
           </tr>
           <tr>
             <td>💯</td>

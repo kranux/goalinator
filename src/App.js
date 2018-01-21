@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid/v1';
 
 import {formatTime} from './utils';
 import GoalListItem from './components/goal-list-item';
@@ -28,15 +29,27 @@ class App extends Component {
   }
 
   goalElementUpdated(element) {
+    const goal = {
+      ...element,
+      id: uuid(),
+      value: element.startValue
+    };
+    const progress = {
+      id: uuid(),
+      goal: goal.id,
+      value: goal.value,
+      time: goal.startTime
+    };
     this.setState({
-      goals: [...this.state.goals, element],
+      goals: [...this.state.goals, goal],
+      progress: [...this.state.progress, progress],
       newGoalForm: undefined
     });
   }
 
   progressElementUpdated(element) {
     this.setState({
-      progress: [...this.state.progress, element],
+      progress: [...this.state.progress, {...element, id: uuid()}],
       registerProgressForm: undefined
     })
   }
@@ -98,11 +111,11 @@ class App extends Component {
             value={this.state.registerProgressForm}
           /> : null}
         <ul>
-          {this.state.goals.map((goal, key) =>
+          {this.state.goals.map(goal =>
             <GoalListItem
               goal={goal}
               items={this.getItems(goal)}
-              key={key}
+              key={goal.id}
               showProgress={this.showProgress}
               showRegisterProgress={this.showRegisterProgress}
             />
@@ -113,7 +126,7 @@ class App extends Component {
             <a onClick={this.closeProgress}>x</a>
             <h2>{this.state.progressVisible.goal.name}</h2>
             <ul>
-              {this.state.progressVisible.items.map((goal, key) => <li key={key}>{formatTime(goal.time)}: {goal.value}</li>)}
+              {this.state.progressVisible.items.map(goal => <li key={goal.id}>{formatTime(goal.time)}: {goal.value}</li>)}
             </ul>
           </div>
         ): null}
