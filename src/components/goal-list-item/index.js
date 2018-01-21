@@ -12,7 +12,19 @@ import {
   calculateDaysLeft
 } from '../../logic';
 
+import GoalListItemExpanded from './goal-list-item-expanded';
+
 export default class GoalListItem extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.showExpanded = this.showExpanded.bind(this);
+  }
+
+  showExpanded() {
+    this.setState({expanded: true});
+  }
 
   render() {
     const goal = this.props.goal;
@@ -28,19 +40,15 @@ export default class GoalListItem extends React.Component {
         <span className={isProgressSymetricToTime(goal) ? 'green' : 'red'}>
           {calculateDaysLeft(goal)} days left
         </span>
-        <ul>
-          <span className="values">
-            Current: {goal.value}
-            {goal.startValue} &#x2192; {goal.goalValue}
-          </span>
-          <span className="time">{formatTime(goal.startTime)} {formatTime(goal.goalTime)}</span>
-          <li>
-            <a onClick={() => {this.props.showProgress(goal)}}>Show progress</a>
-          </li>
-          <li>
-            <a onClick={() => {this.props.showRegisterProgress(goal)}}>Register progress</a>
-          </li>
-        </ul>
+        <span><a onClick={() => {this.props.showRegisterProgress(goal)}}>[ + ]</a></span>
+        <span><a onClick={this.showExpanded}>[ ... ]</a></span>
+        {this.state.expanded ?
+          <GoalListItemExpanded
+            goal={goal}
+            items={this.props.items}
+            showProgress={this.props.showProgress}
+            showRegisterProgress={this.props.showRegisterProgress}
+          /> : null}
       </li>);
   }
 }

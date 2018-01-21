@@ -57,7 +57,7 @@ class App extends Component {
     this.setState({
       progressVisible: {
         goal,
-        items: this.state.progress.filter(progress => progress.goal === goal.id)
+        items: this.getItems(goal)
       }
     })
   }
@@ -78,6 +78,10 @@ class App extends Component {
     });
   }
 
+  getItems(goal) {
+    return this.state.progress.filter(progress => progress.goal === goal.id);
+  }
+
   render() {
 
     return (
@@ -85,16 +89,19 @@ class App extends Component {
         <button onClick={this.showAddGoal}>Add Goal</button>
         {this.state.newGoalForm ?
           <GoalForm
+            elementUpdated={this.goalElementUpdated}
             value={this.state.newGoalForm}
-            elementUpdated={this.goalElementUpdated} /> : null}
+          /> : null}
         {this.state.registerProgressForm ?
           <ProgressForm
+            elementUpdated={this.progressElementUpdated}
             value={this.state.registerProgressForm}
-            elementUpdated={this.progressElementUpdated} /> : null}
+          /> : null}
         <ul>
           {this.state.goals.map((goal, key) =>
             <GoalListItem
               goal={goal}
+              items={this.getItems(goal)}
               key={key}
               showProgress={this.showProgress}
               showRegisterProgress={this.showRegisterProgress}
