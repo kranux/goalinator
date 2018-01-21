@@ -52,7 +52,7 @@ class App extends Component {
     this.setState({
       progress: [...this.state.progress, {...element, id: uuid()}],
       registerProgressForm: undefined
-    })
+    });
   }
 
   showAddGoal() {
@@ -63,7 +63,9 @@ class App extends Component {
         startTime: new Date(),
         goalDate: undefined,
         goalValue: 0
-      }
+      },
+      registerProgressForm: undefined,
+      listItemExpanded: undefined
     });
   }
 
@@ -73,7 +75,9 @@ class App extends Component {
         goal: goal.id,
         time: new Date(),
         value: 0
-      }
+      },
+      newGoalForm: undefined,
+      listItemExpanded: undefined
     });
   }
 
@@ -83,7 +87,9 @@ class App extends Component {
 
   toggleExpanded(goal) {
     this.setState({
-      listItemExpanded: this.state.listItemExpanded !== goal.id ? goal.id : undefined
+      listItemExpanded: this.state.listItemExpanded !== goal.id ? goal.id : undefined,
+      newGoalForm: undefined,
+      registerProgressForm: undefined
     });
   }
 
