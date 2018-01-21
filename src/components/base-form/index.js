@@ -31,4 +31,15 @@ export default class BaseForm extends React.Component {
       {input}
     </div>);
   }
+
+  wrapFormElement(inputs) {
+    return (
+      <div className="dialog">
+        <form onSubmit={this.handleSubmit}>
+          {inputs}
+          <button type="submit">Add</button>
+        </form>
+      </div>
+    );
+  }
 }
