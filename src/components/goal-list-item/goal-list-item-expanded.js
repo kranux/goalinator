@@ -32,7 +32,7 @@ export default class GoalListItemExpanded extends React.Component {
             <td>{goal.startValue}</td>
           </tr>
           {this.state.showHistory ?
-            this.props.items.map((item, key) =>
+            this.props.items.splice(-1, 1).map((item, key) =>
               <tr key={key}>
                 <td></td>
                 <td>{item.time}</td>

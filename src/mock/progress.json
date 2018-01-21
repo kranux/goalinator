@@ -5,6 +5,24 @@
         "time": "2018-01-01"
     },
     {
+      "goal": "books-1",
+      "value": 1,
+      "time": "2018-01-07",
+      "type": "book",
+      "metadata": {
+        "title": "The Subtle Art of Not Giving a F*ck: A Counterintuitive Approach to Living a Good Life"
+      }
+    },
+    {
+      "goal": "books-1",
+      "value": 2,
+      "time": "2019-01-07",
+      "type": "book",
+      "metadata": {
+        "title": "Getting More: How to Negotiate to Achieve Your Goals in the Real World"
+      }
+    },
+    {
         "goal": "weight-1",
         "value": 108,
         "time": "2018-01-20"
