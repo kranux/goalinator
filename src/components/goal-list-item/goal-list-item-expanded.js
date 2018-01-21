@@ -19,7 +19,7 @@ export default class GoalListItemExpanded extends React.Component {
               <td>{goal.startValue}</td>
             </tr>
             {this.props.historyVisible ?
-              this.props.items.splice(-1, 1).map(item =>
+              this.props.items.slice(0, -1).map(item =>
                 <tr key={item.id}>
                   <td></td>
                   <td>{formatTime(item.time)}</td>

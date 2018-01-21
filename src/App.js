@@ -76,6 +76,7 @@ class App extends Component {
         time: new Date(),
         value: 0
       },
+      registerProgressFormGoal: goal,
       newGoalForm: undefined,
       listItemExpanded: undefined
     });
@@ -89,7 +90,8 @@ class App extends Component {
     this.setState({
       listItemExpanded: this.state.listItemExpanded !== goal.id ? goal.id : undefined,
       newGoalForm: undefined,
-      registerProgressForm: undefined
+      registerProgressForm: undefined,
+      toggleHistoryVisible: undefined
     });
   }
 
@@ -113,6 +115,7 @@ class App extends Component {
           <ProgressForm
             elementUpdated={this.progressElementUpdated}
             value={this.state.registerProgressForm}
+            goal={this.state.registerProgressFormGoal}
           /> : null}
         <ul>
           {this.state.goals.map(goal =>
