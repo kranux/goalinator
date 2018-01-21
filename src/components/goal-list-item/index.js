@@ -14,7 +14,7 @@ import {
 
 import GoalListItemExpanded from './goal-list-item-expanded';
 
-export default class GoalListItem extends React.Component {
+export default class GoalListItemCollapsed extends React.Component {
 
   render() {
     const goal = this.props.goal;
@@ -33,7 +33,10 @@ export default class GoalListItem extends React.Component {
         <span className={isProgressSymetricToTime(goal) ? 'green' : 'red'}>
           {calculateDaysLeft(goal)} days left
         </span>
-        <span><a onClick={() => {this.props.showRegisterProgress(goal)}}>[ + ]</a></span>
+        <span><a onClick={event => {
+          event.stopPropagation();
+          this.props.showRegisterProgress(goal);
+          }}>[ + ]</a></span>
         {this.props.expanded ?
           <GoalListItemExpanded
             goal={goal}

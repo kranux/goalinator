@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import uuid from 'uuid/v1';
 
 import {formatTime} from './utils';
-import GoalListItem from './components/goal-list-item';
+import GoalListItemCollapsed from './components/goal-list-item';
 import GoalForm from './components/goal-form';
 import ProgressForm from './components/progress-form';
 
@@ -116,7 +116,7 @@ class App extends Component {
           /> : null}
         <ul>
           {this.state.goals.map(goal =>
-            <GoalListItem
+            <GoalListItemCollapsed
               expanded={this.state.listItemExpanded === goal.id}
               goal={goal}
               historyVisible={this.state.historyVisible === goal.id}
